@@ -40,6 +40,7 @@ function formatDate(date) {
   dateElement.innerHTML = formatDate(currentTime);
   
   function displayWeatherCondition(response) {
+    console.log(response.data);
     document.querySelector("#city").innerHTML = response.data.name;
     document.querySelector("#temperature").innerHTML = Math.round(
       response.data.main.temp
@@ -52,6 +53,7 @@ function formatDate(date) {
     document.querySelector("#typeofday").innerHTML =
       response.data.weather[0].main;
   }
+
   //Goal of this function is to load a city when it first loads
   function searchCity(city) {
     let apiKey = "54f42e07e88440086f3f569842063f49";

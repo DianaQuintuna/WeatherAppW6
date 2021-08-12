@@ -10,11 +10,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+    <!--axios link-->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
   <body>
 
     <div class ="container">
+      <div class="weather-app">
   <div class="maininfo">
     <form = class="search-form" id="search-form">
       <div class="row">
@@ -29,17 +31,19 @@
   <h1 id="city"></h1> 
   <p id="date">July 10 10:00AM</p>
   <p id ="typeofday"></p>
-  <!---This is the sun icon<i id="cloudy"class="fas fa-cloud-sun-rain fa-5x"></i>-->
+  <!--This is the weather icon-->
+  <i id="icon"class="fas fa-cloud-sun-rain fa-5x"></i>
   <p><span class="Currentweather" id="temperature"></span> ˚F |˚C </p>
   <!--<p class="Currentweather" id="temperature">73 ˚C |˚F</p>-->
   <ul> 
     <li>Humidity: <span id="Humidity"></span>%</li> 
     <li> Wind: <span id ="Wind"></span> km/h </li>
   </ul>
+  
   </div>
 </div>
 
-<!--Start of the week list-->  
+<!--Start of the week list
 <div class ="container">
     <div class="card-group">
         <div class="card">
@@ -91,9 +95,15 @@
                     <p class="card-text">80˚F</p>
                   </div>
                 </div>
+              -->
+             
       </div>
     </div>
+    <small>
+      <a href = "https://github.com/DianaQuintuna/WeatherAppW6.git" target="_blank">Open-source code</a> by Diana Quintuna
+    </small>
   </body>
+</div>
   </p>
 
   <script src="src/index.js"></script>
