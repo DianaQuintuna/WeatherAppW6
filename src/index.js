@@ -60,6 +60,10 @@ function formatDate(date) {
     let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
     axios.get(apiURL).then(displayWeatherCondition);
   }
+
+  //Goal of this section is to change the weather icon to the corresponding weather 
+  let iconElement = document.querySelector("#icon");
+  iconElement.setAttribute= ("src",`http://openweathermap.org/img/wn/04d@2x.png`);
   
   //Goal of this function is to allow the user to type whatever city they want
   function handleSubmit(event) {

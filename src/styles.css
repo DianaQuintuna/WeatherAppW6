@@ -56,6 +56,8 @@ small{
   font-weight:bolder;
 }
 
-.form-control{
-  padding-right:3rem;
+#icon{
+  padding-bottom:30px;
+  padding-top:15px;
+  margin:0px;
 }
