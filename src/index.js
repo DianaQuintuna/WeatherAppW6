@@ -44,6 +44,8 @@ function formatDate(date) {
     document.querySelector("#city").innerHTML = response.data.name;
     document.querySelector("#temperature").innerHTML = Math.round(
       response.data.main.temp
+   
+  
     );
   
     document.querySelector("#Humidity").innerHTML = response.data.main.humidity;
@@ -52,6 +54,11 @@ function formatDate(date) {
     );
     document.querySelector("#typeofday").innerHTML =
       response.data.weather[0].main;
+
+  //Goal of this section is to change the weather icon to the corresponding weather 
+  let iconElement = document.querySelector("#icon");
+  iconElement.setAttribute= ("src",`http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+  
   }
 
   //Goal of this function is to load a city when it first loads
@@ -61,10 +68,7 @@ function formatDate(date) {
     axios.get(apiURL).then(displayWeatherCondition);
   }
 
-  //Goal of this section is to change the weather icon to the corresponding weather 
-  let iconElement = document.querySelector("#icon");
-  iconElement.setAttribute= ("src",`http://openweathermap.org/img/wn/04d@2x.png`);
-  
+ 
   //Goal of this function is to allow the user to type whatever city they want
   function handleSubmit(event) {
     event.preventDefault();
@@ -82,6 +86,10 @@ function formatDate(date) {
     navigator.geolocation.getCurrentPosition(searchLocation);
   }
   
+  function displayCelsiusTemperature(event){
+    event.preventDefault();
+    alert("Link clicked");
+  }
   let searchForm = document.querySelector("#search-form");
   
   searchForm.addEventListener("submit", handleSubmit);
@@ -90,3 +98,5 @@ function formatDate(date) {
   Currentlocationbutton.addEventListener("click", getCurrentLocation);
   searchCity("New York");
   
+  let celsiusLink = document.querySelector("#celsius-link");
+  celsiusLink.addEventListener("click", displayCelsiusTemperature);
