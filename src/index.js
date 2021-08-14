@@ -86,10 +86,6 @@ function formatDate(date) {
     navigator.geolocation.getCurrentPosition(searchLocation);
   }
   
-  function displayCelsiusTemperature(event){
-    event.preventDefault();
-    alert("Link clicked");
-  }
   let searchForm = document.querySelector("#search-form");
   
   searchForm.addEventListener("submit", handleSubmit);
@@ -98,5 +94,12 @@ function formatDate(date) {
   Currentlocationbutton.addEventListener("click", getCurrentLocation);
   searchCity("New York");
   
+  function displayCelsiusTemperature(event){
+    event.preventDefault();
+    let celsiusTemperature = (83-32)*(5/9);
+    alert(celsiusTemperature);
+  }
   let celsiusLink = document.querySelector("#celsius-link");
   celsiusLink.addEventListener("click", displayCelsiusTemperature);
+
+  alert("HelloWorld");
