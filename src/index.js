@@ -57,7 +57,7 @@ function formatDate(date) {
 
   //Goal of this section is to change the weather icon to the corresponding weather 
   let iconElement = document.querySelector("#icon");
-  iconElement.setAttribute= ("src",`http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+  iconElement.setAttribute("src",`http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
   
   }
 
@@ -86,20 +86,24 @@ function formatDate(date) {
     navigator.geolocation.getCurrentPosition(searchLocation);
   }
   
-  let searchForm = document.querySelector("#search-form");
   
-  searchForm.addEventListener("submit", handleSubmit);
-  
-  let Currentlocationbutton = document.querySelector("#Current-location-button");
-  Currentlocationbutton.addEventListener("click", getCurrentLocation);
+  //let Currentlocationbutton = document.querySelector("#Current-location-button");
+  //Currentlocationbutton.addEventListener("click", getCurrentLocation);
   searchCity("New York");
   
   function displayCelsiusTemperature(event){
     event.preventDefault();
-    let celsiusTemperature = (83-32)*(5/9);
-    alert(celsiusTemperature);
+    let temperatureElement = document.querySelector("#temperature");
+    let celsiusTemperature = (temperatureElement.innerHTML-32)*(5/9);
+    temperatureElement.innerHTML = Math.round(celsiusTemperature);
   }
+
+  let celsiusTemperature = null; 
+
+  let searchForm = document.querySelector("#search-form");
+  searchForm.addEventListener("submit", handleSubmit);
+
   let celsiusLink = document.querySelector("#celsius-link");
   celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
-  alert("HelloWorld");
+ 
