@@ -1,7 +1,11 @@
 //Feature 1
-function formatDate(date) {
+
+  function formatDate(date) {
     let hours = date.getHours();
     let minutes = date.getMinutes();
+if(minutes < 10) {
+  minutes = `0${minutes}`; 
+}
     let dayIndex = date.getDay();
     let monthIndex = date.getMonth();
   
@@ -31,6 +35,9 @@ function formatDate(date) {
     ];
     let day = days[dayIndex];
     let month = Months[monthIndex];
+    //if (minutes <10){
+      //`0${minutes}`;
+    //}
     return ` ${month} ${day} ${hours}:${minutes}`;
   }
   
