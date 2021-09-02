@@ -1,5 +1,5 @@
 .weather-app{ 
-  max-width: 500px;
+  max-width: 1000px;
   margin:50px auto;
   padding:30px; 
   border: 5px solid black;
@@ -61,4 +61,23 @@ small{
   padding-bottom:30px;
   padding-top:15px;
   margin:0px;
+}
+
+.weather-forecast {
+  margin-top:20px;
+  text-align: center;
+
+}
+
+.weather-forecast-date{ 
+  font-size:16px; 
+  font-weight: bolder;
+  
+}
+
+.weather-forecast-temperature-min{
+  opacity:0.5;
+}
+.weather-forecast-temperatures{
+font-size: 20px;
 }
