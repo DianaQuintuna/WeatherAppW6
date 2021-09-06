@@ -67,13 +67,12 @@ if(minutes < 10) {
       
 
   </div>`;
+  
+
+    });
 
     forecastHTML = forecastHTML + `</div>`;
     forecastElement.innerHTML = forecastHTML;
-    
-
-    })
-
     
     //forecastHTML = forecastHTML + `</div>`;
     //forecastElement.innerHTML = forecastHTML;
