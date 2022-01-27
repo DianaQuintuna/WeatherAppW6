@@ -76,9 +76,9 @@ minutes = `0${minutes}`;
 
       forecastHTML = forecastHTML +  `
     
-    <div class="col-2">
+    <div class="col">
       <div class="weather-forecast-date">
-        ${day}<br>
+        ${day}
       </div>
       <img src="http://openweathermap.org/img/wn/11n@2x.png" alt="" width="60"/><br>
 
