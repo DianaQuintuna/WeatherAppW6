@@ -1,14 +1,16 @@
 //Feature 1
 
-function formatDate(date) {
+function formatDate(timestamp) {
+  //calculate the time 
+  let date =new Date(timestamp);
   let hours = date.getHours();
+if (hours < 10){
+  hours =`0${hours}`;
+}
   let minutes = date.getMinutes();
 if(minutes < 10) {
 minutes = `0${minutes}`; 
 }
-  let dayIndex = date.getDay();
-  let monthIndex = date.getMonth();
-
   let days = [
     "Sunday",
     "Monday",
@@ -19,91 +21,67 @@ minutes = `0${minutes}`;
     "Saturday"
   ];
 
-  let Months = [
-    "January",
-    "Feburary",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-  ];
-  let day = days[dayIndex];
-  let month = Months[monthIndex] 
-  return ` ${month} ${day} ${hours}:${minutes}`;
+  let day = days[date.getDay()];
+  return `${day} ${hours}:${minutes}`;
 }
 
-//Display the weekday forcast 
-/*function displayForecast(){
-  let forecastElement = document.querySelector("#forecast"); 
-  let forecastHTML = `<div class="row">`;
-  let days = ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday", "Friday","Saturday"];
-  days.forEach(function(day){
-    forecastHTML = forecastHTML +  `
+  //This is to have the names of the day appear 
+
+  function formatDay(timestamp){
+    let date = new Date(timestamp*1000); 
+    let day = date.getDay();
+    let days = ["Sun", "Mon","Tue","Wed","Thur","Fri","Sat"];
+
+    return days[day];
+  }
+  //fix try for changing the days of the week 2/28/22, this is to have the 7 days appearing in a row
   
-  <div class="col-2">
-    <div class="weather-forecast-date">
-      ${day}<br>
-    </div>
-    <img src="http://openweathermap.org/img/wn/11n@2x.png" alt="" width="60"/><br>
-    <div class ="weather-forecast-temperatures">
-      <span class="weather-forecast-temperature-max">
-    18˚</span>
-    <span class="weather-forecast-temperature-min">
-      12˚
-    </span>
+  function displayForecast(response){
+    let forecast =response.data.daily;
 
-    </div>
-    
-  </div>
-    
-</div>`;
-
-  });*/
-
-  //fix try 
-  function displayForecast(){
     let forecastElement = document.querySelector("#forecast"); 
 
-    let forecastHTML = `<div class="row">`;
-    let days = ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday", "Friday","Saturday"];
-    days.forEach(function(day){
-
-      forecastHTML = forecastHTML +  `
+    let forecastHTML = `<div class="row">`; 
     
+    forecast.forEach(function (forecastDay, index){
+      if (index < 6){
+      forecastHTML =
+     forecastHTML +
+     `
     <div class="col">
-      <div class="weather-forecast-date">
-        ${day}
-      </div>
-      <img src="http://openweathermap.org/img/wn/11n@2x.png" alt="" width="60"/><br>
-
+      <div class="weather-forecast-date">${formatDay(forecastDay.dt)}</div>
+        <img src="http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png" alt="" width="60"/>
+      
       <div class ="weather-forecast-temperatures">
         <span class="weather-forecast-temperature-max">
-      18˚</span>
+      ${Math.round(forecastDay.temp.max)}˚</span>
       <span class="weather-forecast-temperature-min">
-        12˚
+        ${Math.round(forecastDay.temp.min)}˚
       </span>
-  
       </div>
-            
-
-  </div>`;
+      </div>
+      
   
-
+    `;
+    
+  }
+    
     });
 
-  forecastHTML = forecastHTML + `</div>`;
-  forecastElement.innerHTML = forecastHTML;
-  
-  //forecastHTML = forecastHTML + `</div>`;
-  //forecastElement.innerHTML = forecastHTML;
-  
 
+
+    forecastHTML = forecastHTML + `</div>`;
+    forecastElement.innerHTML = forecastHTML;
+
+  }
+    
+//This is to change the temp of daily forecast 
+function getForecast(coordinates){
+  console.log(coordinates);
+  let apiKey = "54f42e07e88440086f3f569842063f49";
+  let apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=imperial`;
+  console.log(apiURL);
+  axios.get(apiURL).then(displayForecast);
 }
 
 let dateElement = document.querySelector("#date");
@@ -122,6 +100,7 @@ function displayWeatherCondition(response) {
     //Temperature variable to convert it to celsius 
     fahrenheitTemperature = response.data.main.temp;
 
+  //To change the wind speed/humidity 
   document.querySelector("#Humidity").innerHTML = response.data.main.humidity;
   document.querySelector("#Wind").innerHTML = Math.round(
     response.data.wind.speed
@@ -133,21 +112,24 @@ function displayWeatherCondition(response) {
 let iconElement = document.querySelector("#icon");
 iconElement.setAttribute("src",`http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
 
+//This is the API call to change the days of the week forecast 
+getForecast(response.data.coord);
 }
 
 //Goal of this function is to load a city when it first loads
-function searchCity(city) {
+function search(city) {
   let apiKey = "54f42e07e88440086f3f569842063f49";
   let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
   axios.get(apiURL).then(displayWeatherCondition);
+
 }
 
 
 //Goal of this function is to allow the user to type whatever city they want
 function handleSubmit(event) {
   event.preventDefault();
-  let city = document.querySelector("#city-input").value;
-  searchCity(city);
+  let cityInputElement = document.querySelector("#city-input");
+  search(cityInputElement.value);
 }
 function searchLocation(position) {
   let apiKey = "54f42e07e88440086f3f569842063f49";
@@ -161,11 +143,10 @@ function getCurrentLocation(event) {
 }
 
 
-//let Currentlocationbutton = document.querySelector("#Current-location-button");
-//Currentlocationbutton.addEventListener("click", getCurrentLocation);
-searchCity("New York");
+//New York is the default city that appears when the app is first loaded 
+search("New York");
 
-
+//This also changes the main temp in bold in the weather app both conversion blocks 
 //Conversion to Celsius 
 function displayCelsiusTemperature(event){
   event.preventDefault();
@@ -184,8 +165,8 @@ function displayFahrenheitTemperature(event){
 
 let  fahrenheitTemperature = null;  
 
-displayForecast();
 
+//This is to search for the information of the city that is typed in 
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", handleSubmit);
 
@@ -196,4 +177,3 @@ celsiusLink.addEventListener("click", displayCelsiusTemperature);
 //When you click on the Fahrenheit 
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
-
